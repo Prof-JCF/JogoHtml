@@ -1,7 +1,7 @@
 //Forma de objetos
 class Sprites {
-    //Metodo Construtor
-    constructor(posX, posY, width, height, color) {
+    //Metodo Construtor utilizado para objetos 
+    constructor(posX, posY, width, height, color, src) {
         //this.atributos
         //Posição inicial o eixo X
         this.posX = posX;
@@ -21,8 +21,9 @@ class Sprites {
         this.pegar = false;
         //Velocidade
         this.speed = 2;
+        this.src = src;
     }
-    
+
     //Retorna a metade da Largura
     halfWidth(){
         console.log("Largura: "+this.width);

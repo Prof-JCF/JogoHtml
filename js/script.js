@@ -12,6 +12,15 @@
         ctx.drawImage(img, 0, 0, 800, 463);
     };
 
+     //Carregue a imagem
+     var nave = new Image();
+     nave.src = "assets/imagens/nave_rigth.png";
+
+     //Desenhe a imagem de fundo no canvas
+     nave.onload = function () {
+        ctx.drawImage(nave, 0, 0, 0, 0);
+    };
+
     //Teclas
     var LEFT = 37;
     var UP = 38;
@@ -22,20 +31,20 @@
     //Arrays
     var sprites = [];
     var blocks = []; 
-    //Objetos
-    var character = new Sprites(50, 175, 50, 50, "#00f");    
+    //Stancia Objetos
+    var character = new Sprites(50, 175, 50, 50, "#00f", "assets/imagens/nave.png");    
     sprites.push(character);
 
-    var block1 = new Sprites(500, 100, 50, 50, "#f00");
+    var block1 = new Sprites(500, 100, 50, 50, "#f00", "");
     block1.block = false;
     sprites.push(block1);
     blocks.push(block1);
 
-    var block2 = new Sprites(200, 300, 100, 50, "#f00");
+    var block2 = new Sprites(200, 300, 100, 50, "#f00", "");
     sprites.push(block2);
     blocks.push(block2);
 
-    var block3 = new Sprites(100, 300, 100, 50, "#f05");
+    var block3 = new Sprites(100, 100, 60, 50, "#f05", "assets/imagens/vida.png");
     block3.pegar = true;
     sprites.push(block3);
     blocks.push(block3);
@@ -79,12 +88,7 @@
         }
     }, false);
 
-    //funcão que atualiza a po jogo
-    function loop(){
-        window.requestAnimationFrame(loop, cnv);
-        update();
-        render();    
-    } 
+   
     
     function update(){
 
@@ -134,11 +138,48 @@
         for(i=0; i < sprites.length; i++){
             var spr = sprites[i];
             if (spr.visible){
-                ctx.fillStyle = spr.color;
-                ctx.fillRect(spr.posX, spr.posY, spr.width, spr.height);                
-            }
-        }   
-            
+                if(spr.src != ""){ 
+                    
+                    if(spr.pegar){
+                        var vida = new Image();
+                        vida.src = spr.src;
+                        ctx.drawImage(vida, spr.posX, spr.posY, spr.width, spr.height);
+                    }else{
+                        
+                        if(mvLeft){                        
+                            nave.src = "assets/imagens/nave_left.png";
+                            ctx.drawImage(nave, spr.posX, spr.posY, spr.width, spr.height);
+                        }else if(mvUp){
+                            nave.src = "assets/imagens/nave_up.png";
+                            ctx.drawImage(nave, spr.posX, spr.posY, spr.width, spr.height);
+                        }else if(mvRigth){
+                            nave.src = "assets/imagens/nave_rigth.png";
+                            ctx.drawImage(nave, spr.posX, spr.posY, spr.width, spr.height);
+                        }else if(mvDown){
+                            nave.src = "assets/imagens/nave_down.png";
+                            ctx.drawImage(nave, spr.posX, spr.posY, spr.width, spr.height);
+                        } else{
+                            ctx.drawImage(nave, spr.posX, spr.posY, spr.width, spr.height);
+                        }
+                    }
+                    
+
+
+                                    
+                }else{
+                    ctx.fillStyle = spr.color;
+                    ctx.fillRect(spr.posX, spr.posY, spr.width, spr.height);                
+                }    
+            }            
+        }            
     } 
+
+     //funcão que atualiza a po jogo
+     function loop(){
+        window.requestAnimationFrame(loop, cnv);
+        update();
+        render();    
+    } 
+
     loop();
 }());
