@@ -20,7 +20,7 @@
      nave.onload = function () {
         ctx.drawImage(nave, 0, 0, 0, 0);
     };
-
+   
     //Teclas
     var LEFT = 37;
     var UP = 38;
@@ -32,20 +32,23 @@
     var sprites = [];
     var blocks = []; 
     //Stancia Objetos
-    var character = new Sprites(50, 175, 50, 50, "#00f", "assets/imagens/nave.png");    
+    var character = new Sprites(50, 175, 50, 50, "#00f", "assets/imagens/nave.png");   
+    character.obstaculo = false; 
     sprites.push(character);
 
-    var block1 = new Sprites(500, 100, 50, 50, "#f00", "");
+    var block1 = new Sprites(500, 100, 50, 50, "#f15250", "");
     block1.block = false;
+    block1.obstaculo = false;
     sprites.push(block1);
     blocks.push(block1);
 
-    var block2 = new Sprites(200, 300, 100, 50, "#f00", "");
+    var block2 = new Sprites(300, 100, 100, 100, "#7b3f00", "assets/imagens/asteroid.png");
     sprites.push(block2);
     blocks.push(block2);
 
     var block3 = new Sprites(100, 100, 60, 50, "#f05", "assets/imagens/vida.png");
     block3.pegar = true;
+    block3.obstaculo = false;
     sprites.push(block3);
     blocks.push(block3);
     
@@ -144,6 +147,10 @@
                         var vida = new Image();
                         vida.src = spr.src;
                         ctx.drawImage(vida, spr.posX, spr.posY, spr.width, spr.height);
+                    }else if(spr.obstaculo){
+                        var asteroid = new Image();
+                        asteroid.src = spr.src;
+                        ctx.drawImage(asteroid, spr.posX, spr.posY, spr.width, spr.height);
                     }else{
                         
                         if(mvLeft){                        
@@ -162,9 +169,8 @@
                             ctx.drawImage(nave, spr.posX, spr.posY, spr.width, spr.height);
                         }
                     }
+
                     
-
-
                                     
                 }else{
                     ctx.fillStyle = spr.color;

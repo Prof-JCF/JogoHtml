@@ -17,10 +17,23 @@ function blockRect(r1, r2){
         if(r2.pegar){
             //Se tocou no elemento ele recebe visibilidade false e some
             r2.visible = false;
+            //Declara uma variavel 'img' e cria um novo elemento imagem html 
+            let img = document.createElement("img");
+            //Declara uma variavel vida que e atribui a ala a tag span com id 'vida' 
+            let vida = document.getElementById("vida");
+            //Seleciona a imagem que será exibida na nova tag img
+            img.src = "assets/imagens/vida.png";
+            //Altera a largura da imagem para 30 px
+            img.width = 30;
+            //Debug da variavel vida no console
+            console.log(vida);
+            //Adiciona a imagem dentro do campo vida
+            vida.appendChild(img);
+
             //Função de tempo que espera 5 segundos para o elemento voltar a tela
             setTimeout(function (){
                 r2.visible = true;
-            }, 5000);
+            }, 120000);
         }
 
         //Variaveis que verificam quanto um objeto se sobrepos a outro
